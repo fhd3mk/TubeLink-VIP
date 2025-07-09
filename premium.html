@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TubeLink - الاشتراك المتميز</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="firebase.js"></script>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <i class="fas fa-video"></i>
+      <span>TubeLink</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">الرئيسية</a></li>
+        <li class="auth-link"><a href="login.html">تسجيل الدخول</a></li>
+        <li class="auth-link"><a href="register.html">تسجيل حساب</a></li>
+        <li class="logout-link" style="display: none;"><a href="#" onclick="logout()">تسجيل الخروج</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="form-container">
+      <h2><i class="fas fa-crown"></i> الاشتراك المتميز</h2>
+      
+      <div id="premiumStatus" style="margin-bottom: 2rem;">
+        <!-- سيتم عرض حالة الاشتراك هنا -->
+      </div>
+      
+      <div class="premium-features">
+        <div class="feature-card">
+          <i class="fas fa-hd"></i>
+          <h3>جودة 1080p</h3>
+          <p>مشاهدة جميع الفيديوهات بجودة عالية 1080 بكسل</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-ad"></i>
+          <h3>بدون إعلانات</h3>
+          <p>تصفح الموقع بدون أي إعلانات مزعجة</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-star"></i>
+          <h3>ميزة دائمة</h3>
+          <p>اشتراك لمرة واحدة بدون تجديد تلقائي</p>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: #f9f9f9; border-radius: 8px;">
+        <h3>سعر الاشتراك: 2 ريال سعودي (دفعة واحدة)</h3>
+        <p>بعد الدفع، سيتم تفعيل الاشتراك خلال 24 ساعة</p>
+        
+        <div style="margin-top: 1.5rem;">
+
+          <div style="background: white; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+            <h5><i class="fas fa-hand-holding-usd"></i> دفع نقدي</h5>
+            <p>يمكنك الدفع نقداً عند مقابلتنا </p>
+          <div style="background: white; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+            <h5><i class="fas fa-hand-holding-usd"></i>تحويل بنكي</h5>
+            <p>يرجى بعد التحويل ارسال رسالة التحويل عبر الوتساب</p>
+            <p>رقم واتساب: 0500661745</p>
+  </div>
+
+  <script>
+    // تحقق من حالة الاشتراك المتميز
+    firebase.auth().onAuthStateChanged(user => {
+      const premiumStatus = document.getElementById('premiumStatus');
+      
+      if (user) {
+        db.collection('users').doc(user.uid).get().then(doc => {
+          if (doc.exists) {
+            const userData = doc.data();
+            
+            if (userData.premium) {
+              premiumStatus.innerHTML = `
+                <div style="background: #e6ffe6; padding: 1rem; border-radius: 8px; border-left: 4px solid #4CAF50;">
+                  <h4 style="color: #4CAF50;"><i class="fas fa-check-circle"></i> أنت مشترك متميز</h4>
+                  <p>شكراً لك! يمكنك الآن مشاهدة جميع الفيديوهات بجودة 1080p</p>
+                </div>
+              `;
+            } else {
+              premiumStatus.innerHTML = `
+                <div style="background: #fff3e6; padding: 1rem; border-radius: 8px; border-left: 4px solid #ff9800;">
+                  <h4><i class="fas fa-info-circle"></i> اشتراك عادي</h4>
+                  <p>للحصول على جودة 1080p، يرجى إتمام عملية الدفع ثم التواصل معنا لتفعيل الاشتراك المتميز</p>
+                </div>
+              `;
+            }
+          }
+        });
+      } else {
+        premiumStatus.innerHTML = `
+          <div style="background: #ffebee; padding: 1rem; border-radius: 8px; border-left: 4px solid #f44336;">
+            <h4><i class="fas fa-exclamation-circle"></i> يجب تسجيل الدخول</h4>
+            <p>يرجى <a href="login.html">تسجيل الدخول</a> أو <a href="register.html">إنشاء حساب</a> للوصول إلى صفحة الاشتراك المتميز</p>
+          </div>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>

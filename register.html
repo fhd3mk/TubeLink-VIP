@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TubeLink - تسجيل حساب جديد</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="firebase.js"></script>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <i class="fas fa-video"></i>
+      <span>TubeLink</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">الرئيسية</a></li>
+        <li class="auth-link"><a href="login.html">تسجيل الدخول</a></li>
+        <li class="auth-link"><a href="register.html">تسجيل حساب</a></li>
+        <li class="logout-link" style="display: none;"><a href="#" onclick="logout()">تسجيل الخروج</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="form-container">
+    <h2><i class="fas fa-user-plus"></i> تسجيل حساب جديد</h2>
+    <form id="registerForm" onsubmit="registerUser(event)">
+      <div class="form-group">
+        <label for="regEmail">البريد الإلكتروني *</label>
+        <input type="email" id="regEmail" required>
+      </div>
+      <div class="form-group">
+        <label for="regPassword">كلمة المرور * (6 أحرف على الأقل)</label>
+        <input type="password" id="regPassword" required minlength="6">
+      </div>
+      <div class="form-group">
+        <label for="regPhone">رقم الهاتف (اختياري)</label>
+        <input type="tel" id="regPhone">
+      </div>
+      <button type="submit" class="btn btn-block">تسجيل حساب</button>
+    </form>
+    <p style="text-align: center; margin-top: 1rem;">لديك حساب بالفعل؟ <a href="login.html">سجل الدخول</a></p>
+  </div>
+
+  <script>
+    function registerUser(e) {
+      e.preventDefault();
+      const email = document.getElementById('regEmail').value;
+      const password = document.getElementById('regPassword').value;
+      const phone = document.getElementById('regPhone').value;
+
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          // لا داعي لحفظ البيانات هنا، لأننا نستخدم onAuthStateChanged في firebase.js
+          alert('تم تسجيل الحساب بنجاح!');
+          window.location.href = 'index.html';
+        })
+        .catch(error => {
+          console.error("Registration error: ", error);
+          alert('خطأ في التسجيل: ' + error.message);
+        });
+    }
+  </script>
+</body>
+</html>

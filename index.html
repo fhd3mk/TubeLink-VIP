@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TubeLink - مشاركة الفيديوهات</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="firebase.js"></script>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <i class="fas fa-video"></i>
+      <span>TubeLink</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">الرئيسية</a></li>
+        <li class="auth-link"><a href="login.html">تسجيل الدخول</a></li>
+        <li class="auth-link"><a href="register.html">تسجيل حساب</a></li>
+        <li class="logout-link" style="display: none;"><a href="#" onclick="logout()">تسجيل الخروج</a></li>
+        <li><a href="premium.html">اشتراك متميز</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <button id="addVideoBtn" class="btn" style="display: none; margin-bottom: 2rem;" onclick="window.location.href='add-video.html'">
+      <i class="fas fa-plus"></i> إضافة فيديو
+    </button>
+
+    <div id="videosContainer">
+      <!-- سيتم تحميل الفيديوهات هنا من خلال JavaScript -->
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      loadVideos();
+    });
+  </script>
+</body>
+</html>

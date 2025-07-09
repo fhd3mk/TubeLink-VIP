@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TubeLink - إضافة فيديو</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="firebase.js"></script>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <i class="fas fa-video"></i>
+      <span>TubeLink</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">الرئيسية</a></li>
+        <li class="logout-link" style="display: none;"><a href="#" onclick="logout()">تسجيل الخروج</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="form-container">
+    <h2><i class="fas fa-plus-circle"></i> إضافة فيديو جديد</h2>
+    <form id="videoForm">
+      <div class="form-group">
+        <label for="videoTitle">عنوان الفيديو *</label>
+        <input type="text" id="videoTitle" required>
+      </div>
+      <div class="form-group">
+        <label for="videoUrl">رابط الفيديو (YouTube أو غيره) *</label>
+        <input type="url" id="videoUrl" required>
+      </div>
+      <div class="form-group">
+        <label for="videoDescription">وصف الفيديو (اختياري)</label>
+        <textarea id="videoDescription"></textarea>
+      </div>
+      <div class="form-group">
+        <label>
+          <input type="checkbox" id="isPremium">
+          فيديو متميز (جودة 1080p فقط للمشتركين المتميزين)
+        </label>
+      </div>
+      <button type="button" class="btn btn-block" onclick="saveVideo()">حفظ الفيديو</button>
+    </form>
+  </div>
+</body>
+</html>

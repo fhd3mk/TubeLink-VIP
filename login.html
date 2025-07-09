@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TubeLink - تسجيل الدخول</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="firebase.js"></script>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <i class="fas fa-video"></i>
+      <span>TubeLink</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">الرئيسية</a></li>
+        <li class="auth-link"><a href="login.html">تسجيل الدخول</a></li>
+        <li class="auth-link"><a href="register.html">تسجيل حساب</a></li>
+        <li class="logout-link" style="display: none;"><a href="#" onclick="logout()">تسجيل الخروج</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="form-container">
+    <h2><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</h2>
+    <form id="loginForm" onsubmit="loginUser(event)">
+      <div class="form-group">
+        <label for="email">البريد الإلكتروني</label>
+        <input type="email" id="email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">كلمة المرور</label>
+        <input type="password" id="password" required>
+      </div>
+      <button type="submit" class="btn btn-block">تسجيل الدخول</button>
+    </form>
+    <p style="text-align: center; margin-top: 1rem;">ليس لديك حساب؟ <a href="register.html">سجل الآن</a></p>
+  </div>
+
+  <script>
+    function loginUser(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .then(() => {
+          window.location.href = 'index.html';
+        })
+        .catch(error => {
+          console.error("Login error: ", error);
+          alert('خطأ في تسجيل الدخول: ' + error.message);
+        });
+    }
+  </script>
+</body>
+</html>
